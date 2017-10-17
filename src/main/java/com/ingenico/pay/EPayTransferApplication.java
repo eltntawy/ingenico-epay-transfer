@@ -2,13 +2,8 @@ package com.ingenico.pay;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.logging.LogManager;
 
 
 /**
