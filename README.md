@@ -17,6 +17,7 @@ solution contains for several layer
 - Data Access Object handel data manipulation.
 - Data Transfer Object.
 - Mapper to map from Dto -> entity and vs verse.
+- Using Java Map Collection as storage to save data
 
 
 Solution Structure
