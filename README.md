@@ -21,8 +21,15 @@ solution contains for several layer
 
 Solution Structure
 --
-- Main package "com.ingenico.pay"
-
+- Main package "com.ingenico.pay" contains
+    * dao
+    * entity
+    * dto
+    * exception
+    * rest
+    * service
+    * util
+- Test package "com.ingenico.pay.test" testing scenarios 
 
 How To Run
 --
