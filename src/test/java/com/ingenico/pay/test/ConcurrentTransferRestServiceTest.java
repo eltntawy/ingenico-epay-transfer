@@ -47,6 +47,9 @@ public class ConcurrentTransferRestServiceTest {
     double balance = 1000d;
     double amount = 10d;
 
+    /**
+     * setup the env and create two vitrual accounts with initial balance @balance
+     */
     @Before
     public void setup() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -54,6 +57,9 @@ public class ConcurrentTransferRestServiceTest {
         accountDto2 = accountService.create(accountName2, balance);
     }
 
+    /*
+     * trying to make multiple transfer from @accountDto1 to @accountDto2 by @amount
+     */
     @Test
     public void makeTransfer() throws Exception {
 

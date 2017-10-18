@@ -12,25 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class AccountDao {
 
+
+    // work as the memory to save account data
     private static final Map<String, AccountEntity> accountMap = new ConcurrentHashMap<String, AccountEntity>();
 
-    /*
-    static {
-        AccountEntity accountEntity1 = new AccountEntity();
-        AccountEntity accountEntity2 = new AccountEntity();
-
-        accountEntity1.setId("1");
-        accountEntity1.setName("Account 1");
-        accountEntity1.setBalance(10d);
-
-        accountEntity2.setId("2");
-        accountEntity2.setName("Account 2");
-        accountEntity2.setBalance(10d);
-
-        accountMap.put("1",accountEntity1);
-        accountMap.put("2",accountEntity2);
-    }*/
-
+    /**
+     * @param id for account
+     * @return account entity
+     */
     public AccountEntity find(String id) {
         if (id != null) {
             AccountEntity accountEntity = accountMap.get(id);
@@ -39,6 +28,10 @@ public class AccountDao {
         return null;
     }
 
+    /**
+     * @param accountEntity  account entity to save
+     * @return account dto
+     */
     public void save(AccountEntity accountEntity) {
 
         if (accountEntity != null && accountEntity.getId() == null) {
@@ -49,18 +42,19 @@ public class AccountDao {
         }
     }
 
+    /**
+     *
+     * @param id deleted account id
+     */
     public void delete(String id) {
         if (id != null && accountMap.containsKey(id)) {
             accountMap.remove(id);
         }
     }
 
-    public void update(AccountEntity accountEntity) {
-        if (accountEntity != null && accountEntity.getId() != null && accountMap.containsKey(accountEntity.getId())) {
-            accountMap.put(accountEntity.getId(),accountEntity);
-        }
-    }
-
+    /**
+     * @return all account as dtos List
+     */
     public List<AccountEntity> findAll() {
 
         List<AccountEntity> accountEntities = new ArrayList<AccountEntity>();

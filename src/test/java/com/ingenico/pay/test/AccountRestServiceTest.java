@@ -38,10 +38,6 @@ public class AccountRestServiceTest {
 
     MockMvc mockMvc;
 
-    @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
 
     @Autowired
     AccountService accountService;
@@ -54,6 +50,16 @@ public class AccountRestServiceTest {
 
     double balance = 10d;
 
+
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
+
+    /**
+     *
+     * trying to test create two account and assert the result
+     */
     @Test
     public void accountCreation() throws Exception {
 

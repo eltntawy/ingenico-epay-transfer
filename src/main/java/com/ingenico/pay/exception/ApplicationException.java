@@ -1,5 +1,6 @@
 package com.ingenico.pay.exception;
 
+import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -25,10 +26,17 @@ public class ApplicationException {
     }
 
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "No sufficient Balance")
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid Amount For Transfer")
     public static class InvalidAmountForTransfer extends RuntimeException {
         public InvalidAmountForTransfer(double amount) {
             super("amount="+amount+" is not valid to proceed with transfer");
+        }
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Illegal Initial Balance")
+    public static class IllegalInitialBalance extends RuntimeException {
+        public IllegalInitialBalance(double balance) {
+            super("balance="+balance+" is not valid initial balance for account");
         }
     }
 }

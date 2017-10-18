@@ -1,6 +1,7 @@
 package com.ingenico.pay.rest;
 
 import com.ingenico.pay.dto.AccountDto;
+import com.ingenico.pay.exception.ApplicationException;
 import com.ingenico.pay.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,11 @@ public class AccountRest {
     @Autowired
     private AccountService accountService;
 
+    /**
+     *
+     * @param id account id
+     * @return return ResponseEntity<AccountDto>
+     */
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ResponseEntity<AccountDto> find(@PathVariable("id") String id) {
 
@@ -37,8 +43,20 @@ public class AccountRest {
         return null;
     }
 
+    /**
+     *
+     * @param accountName create account with given name
+     * @param balance and a given balance
+     * @return return the account after creation
+     *
+     * @throws ApplicationException
+     */
     @RequestMapping(value = "/",method = RequestMethod.POST)
     public ResponseEntity<AccountDto> create (@RequestParam("accountName") String accountName,@RequestParam("balance") double balance) {
+
+        if(balance < 0 ) {
+            throw new ApplicationException.IllegalInitialBalance(balance);
+        }
 
         LOGGER.log(Level.INFO,"account creation request with: accountName="+accountName+ " - balance="+balance);
 
@@ -51,6 +69,12 @@ public class AccountRest {
     }
 
 
+    /**
+     *
+     * @param id id for account to delete
+     * @return deleted account
+     * @throws ApplicationException.AccountNotFoundException
+     */
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<AccountDto> delete (@PathVariable("id") String id) {
 
@@ -65,6 +89,10 @@ public class AccountRest {
     }
 
 
+    /**
+     *
+     * @return find all accounts
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<AccountDto>> findAll() {
 

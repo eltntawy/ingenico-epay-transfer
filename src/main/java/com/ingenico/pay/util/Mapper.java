@@ -9,11 +9,11 @@ import java.util.List;
 
 /**
  * Created by mohamedtantawy on 10/17/17.
+ *
+ * Mapper Util class map entity to dto and from dto to entity
  */
 @Service
 public class Mapper {
-
-
 
     public AccountEntity getEntity (AccountDto accountDto) {
 

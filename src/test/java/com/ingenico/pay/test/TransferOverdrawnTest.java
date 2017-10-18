@@ -58,6 +58,10 @@ public class TransferOverdrawnTest {
         accountDto2 = accountService.create(accountName2, balance);
     }
 
+    /**
+     *
+     * trying to test make account overdrawn
+     */
     @Test
     public void checkOverdrawn() throws Exception {
 
