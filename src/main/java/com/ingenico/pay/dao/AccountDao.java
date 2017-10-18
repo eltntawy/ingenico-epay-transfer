@@ -1,10 +1,9 @@
 package com.ingenico.pay.dao;
 
 import com.ingenico.pay.entity.AccountEntity;
-import com.ingenico.pay.rest.AccountRest;
 import org.springframework.stereotype.Repository;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -13,10 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class AccountDao {
 
-    private static final Map<Integer, AccountEntity> accountMap = new ConcurrentHashMap<Integer, AccountEntity>();
+    private static final Map<String, AccountEntity> accountMap = new ConcurrentHashMap<String, AccountEntity>();
 
 
-    public AccountEntity find(Integer id) {
+    public AccountEntity find(String id) {
         if (id != null && accountMap.containsKey(id)) {
             AccountEntity accountEntity = accountMap.get(id);
             return accountEntity;
@@ -25,12 +24,18 @@ public class AccountDao {
     }
 
     public void save(AccountEntity accountEntity) {
-        if (accountEntity != null && accountEntity.getId() != null) {
+
+        if (accountEntity != null && accountEntity.getId() == null) {
+            UUID uuid = UUID.randomUUID();
+            String id = uuid.toString();
+            accountEntity.setId(id);
             accountMap.put(accountEntity.getId(), accountEntity);
+        } else if(accountEntity != null && accountEntity.getId() != null) {
+            update(accountEntity);
         }
     }
 
-    public void delete(Integer id) {
+    public void delete(String id) {
         if (id != null && accountMap.containsKey(id)) {
             accountMap.remove(id);
         }
@@ -42,4 +47,14 @@ public class AccountDao {
         }
     }
 
+    public List<AccountEntity> findAll() {
+
+        List<AccountEntity> accountEntities = new ArrayList<AccountEntity>();
+        Set<String> keyset = accountMap.keySet();
+        for(String key : keyset) {
+            accountEntities.add(accountMap.get(key));
+        }
+
+        return  accountEntities;
+    }
 }

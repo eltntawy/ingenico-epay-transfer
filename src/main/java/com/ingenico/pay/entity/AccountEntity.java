@@ -6,16 +6,16 @@ package com.ingenico.pay.entity;
 public class AccountEntity {
 
 
-    private Integer id;
+    private String id;
     private String name;
     private Double balance;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,14 +40,14 @@ public class AccountEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AccountEntity accountEntity = (AccountEntity) o;
+        AccountEntity that = (AccountEntity) o;
 
-        return id == accountEntity.id;
+        return id != null ? id.equals(that.id) : that.id == null;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

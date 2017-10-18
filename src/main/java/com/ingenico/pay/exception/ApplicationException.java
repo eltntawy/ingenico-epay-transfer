@@ -1,5 +1,6 @@
 package com.ingenico.pay.exception;
 
+import com.ingenico.pay.dto.AccountDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -9,15 +10,26 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ApplicationException {
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No such Account")
-    class AccountNotFoundException extends RuntimeException {
-
+    public static class AccountNotFoundException extends RuntimeException {
+        public AccountNotFoundException(String id) {
+            super("account id=" +id + " not found");
+        }
     }
 
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "No sufficient Balance")
-    class NoSufficientBalanceException extends RuntimeException {
+    public static class NoSufficientBalanceException extends RuntimeException {
 
+        public NoSufficientBalanceException(String id, Double amount) {
+            super("account id=" + id + " has not enough balance for amount=" + amount);
+        }
     }
 
 
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "No sufficient Balance")
+    public static class InvalidAmountForTransfer extends RuntimeException {
+        public InvalidAmountForTransfer(Double amount) {
+            super("amount="+amount+" is not valid to proceed with transfer");
+        }
+    }
 }

@@ -6,16 +6,16 @@ package com.ingenico.pay.dto;
 public class AccountDto {
 
 
-    private Integer id;
+    private String id;
     private String name;
     private Double balance;
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,14 +40,14 @@ public class AccountDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AccountDto accountDto = (AccountDto) o;
+        AccountDto that = (AccountDto) o;
 
-        return id == accountDto.id;
+        return id != null ? id.equals(that.id) : that.id == null;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override

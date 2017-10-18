@@ -1,8 +1,12 @@
 package com.ingenico.pay.util;
 
+import com.ingenico.pay.dao.AccountDao;
 import com.ingenico.pay.dto.AccountDto;
 import com.ingenico.pay.entity.AccountEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mohamedtantawy on 10/17/17.
@@ -34,5 +38,13 @@ public class Mapper {
         dto.setBalance(accountEntity.getBalance());
 
         return dto;
+    }
+
+    public List<AccountDto> getDtos(List<AccountEntity> accountEntities) {
+        List<AccountDto> accountDaos = new ArrayList<AccountDto>();
+        for(AccountEntity accountEntity : accountEntities) {
+            accountDaos.add(getDto(accountEntity));
+        }
+        return accountDaos;
     }
 }
