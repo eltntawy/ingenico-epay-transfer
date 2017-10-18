@@ -1,6 +1,5 @@
 package com.ingenico.pay.rest;
 
-import com.ingenico.pay.service.AccountService;
 import com.ingenico.pay.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ public class TransferRest {
     @RequestMapping(value = "/{fromAccount}/{toAccount}", method = RequestMethod.POST)
     public ResponseEntity<String> transferRequest(@PathVariable("fromAccount") String fromAccountId,
                                           @PathVariable("toAccount") String toAccountId,
-                                          @RequestParam("amount") Double amount) {
+                                          @RequestParam("amount") double amount) {
 
         transferService.validateAccountAndDoTransfer(fromAccountId,toAccountId,amount);
 

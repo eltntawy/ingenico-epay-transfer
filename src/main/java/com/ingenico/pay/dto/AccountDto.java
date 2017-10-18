@@ -8,7 +8,7 @@ public class AccountDto {
 
     private String id;
     private String name;
-    private Double balance;
+    private double balance;
 
 
     public String getId() {
@@ -27,11 +27,11 @@ public class AccountDto {
         this.name = name;
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

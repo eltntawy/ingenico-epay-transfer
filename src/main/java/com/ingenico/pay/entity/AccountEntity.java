@@ -8,14 +8,14 @@ public class AccountEntity {
 
     private String id;
     private String name;
-    private Double balance;
+    private double balance;
 
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public synchronized void  setId(String id) {
         this.id = id;
     }
 
@@ -23,15 +23,15 @@ public class AccountEntity {
         return name;
     }
 
-    public void setName(String name) {
+    public synchronized void setName(String name) {
         this.name = name;
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance) {
+    public synchronized void setBalance(double balance) {
         this.balance = balance;
     }
 

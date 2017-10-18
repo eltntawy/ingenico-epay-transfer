@@ -40,11 +40,7 @@ public class AccountService {
     }
 
 
-    public void save(AccountEntity accountEntity) {
-        accountDao.save(accountEntity);
-    }
-
-    public AccountDto create(String name, Double balance) {
+    public AccountDto create(String name, double balance) {
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setName(name);
         accountEntity.setBalance(balance);
@@ -74,7 +70,7 @@ public class AccountService {
         }
     }
 
-    public void checkAccountHasSufficientBalance(String id, Double amount) {
+    public void checkAccountHasSufficientBalance(String id, double amount) {
         AccountEntity accountEntity = accountDao.find(id);
 
         if(accountEntity.getBalance() < amount) {

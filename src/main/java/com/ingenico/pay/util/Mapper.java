@@ -1,6 +1,5 @@
 package com.ingenico.pay.util;
 
-import com.ingenico.pay.dao.AccountDao;
 import com.ingenico.pay.dto.AccountDto;
 import com.ingenico.pay.entity.AccountEntity;
 import org.springframework.stereotype.Service;

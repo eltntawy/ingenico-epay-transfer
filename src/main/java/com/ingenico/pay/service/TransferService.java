@@ -19,7 +19,7 @@ public class TransferService {
 
     private static final Logger logger = Logger.getLogger(TransferService.class.getSimpleName());
 
-    public void validateAccountAndDoTransfer(final String fromAccountId,final String toAccountId, final Double amount) {
+    public void validateAccountAndDoTransfer(final String fromAccountId,final String toAccountId, final double amount) {
 
         accountService.validateAccount(fromAccountId);
         accountService.validateAccount(toAccountId);
@@ -30,18 +30,27 @@ public class TransferService {
         synchronized (fromAccountEntity) {
             try {
                 accountService.checkAccountHasSufficientBalance(fromAccountId, amount);
-                AccountEntity toAccountEntity = accountService.findEntity(fromAccountId);
+                AccountEntity toAccountEntity = accountService.findEntity(toAccountId);
+
                 synchronized (toAccountEntity) {
 
-                    Double newFromAccountBalance = fromAccountEntity.getBalance() - amount;
-                    fromAccountEntity.setBalance(newFromAccountBalance);
+                    double fromAccountBalance = fromAccountEntity.getBalance();
+                    double toAccountBalance = toAccountEntity.getBalance();
 
-                    Double newToAccountBalance = toAccountEntity.getBalance() +amount;
-                    toAccountEntity.setBalance(newToAccountBalance);
-                    accountService.save(toAccountEntity);
+                    double newFromAccountBalance = fromAccountEntity.getBalance() - amount;
+                    double newToAccountBalance = toAccountEntity.getBalance() +amount;
+
+                    try {
+                        fromAccountEntity.setBalance(newFromAccountBalance);
+                        toAccountEntity.setBalance(newToAccountBalance);
+                    } catch (Exception ex) {
+                        logger.log(Level.SEVERE, "exception occurs while transfer operation fromId="+fromAccountId+" - toId="+toAccountId+" with amount="+amount);
+                        fromAccountEntity.setBalance(fromAccountBalance);
+                        toAccountEntity.setBalance(toAccountBalance);
+                        throw ex;
+                    }
                     logger.log(Level.INFO, "transfer completed successfully from id="+fromAccountId + " to id="+toAccountId + " amount" +amount);
                 }
-                accountService.save(fromAccountEntity);
             } catch (ApplicationException.NoSufficientBalanceException ex) {
                 logger.log(Level.SEVERE,"Account id="+fromAccountId+ " balance="+fromAccountEntity.getBalance() +" has not enough balance for amount="+amount,ex);
                 throw ex;
@@ -52,7 +61,7 @@ public class TransferService {
 
     }
 
-    private void validateAmount(Double amount) {
+    private void validateAmount(double amount) {
         if(amount <= 0 ) {
             throw new ApplicationException.InvalidAmountForTransfer(amount);
         }

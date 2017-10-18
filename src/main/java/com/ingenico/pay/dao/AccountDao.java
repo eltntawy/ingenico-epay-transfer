@@ -30,8 +30,6 @@ public class AccountDao {
             String id = uuid.toString();
             accountEntity.setId(id);
             accountMap.put(accountEntity.getId(), accountEntity);
-        } else if(accountEntity != null && accountEntity.getId() != null) {
-            update(accountEntity);
         }
     }
 

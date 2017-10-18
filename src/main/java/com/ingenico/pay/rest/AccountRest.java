@@ -3,13 +3,10 @@ package com.ingenico.pay.rest;
 import com.ingenico.pay.dto.AccountDto;
 import com.ingenico.pay.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import javax.xml.ws.Response;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +39,7 @@ public class AccountRest {
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
     @PostMapping
-    public ResponseEntity<AccountDto> create (@RequestParam("accountName") String accountName,@RequestParam("balance") Double balance) {
+    public ResponseEntity<AccountDto> create (@RequestParam("accountName") String accountName,@RequestParam("balance") double balance) {
 
         LOGGER.log(Level.INFO,"account creation request with: accountName="+accountName+ " - balance="+balance);
 
@@ -75,13 +72,13 @@ public class AccountRest {
 
         List<AccountDto> accountDtos = accountService.findAll();
 
-        if(accountDtos != null) {
-            ResponseEntity<List<AccountDto>> response = new ResponseEntity<List<AccountDto>>(accountDtos, HttpStatus.FOUND);
+        if(accountDtos != null && !accountDtos.isEmpty()) {
+            ResponseEntity<List<AccountDto>> response = new ResponseEntity<List<AccountDto>>(accountDtos, HttpStatus.OK);
 
             return response;
         }
 
-        ResponseEntity response = new ResponseEntity<>("No Account Founded", HttpStatus.FOUND);
+        ResponseEntity response = new ResponseEntity<>("No Account Founded", HttpStatus.NO_CONTENT);
 
         return response;
     }
