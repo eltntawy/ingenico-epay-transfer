@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.ingenico.pay.dto.AccountDto;
 import com.ingenico.pay.service.AccountService;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -29,10 +28,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AccountTest {
+public class AccountRestServiceTest {
 
 
-    private static final Logger logger = Logger.getLogger(AccountTest.class.getSimpleName());
+    private static final Logger logger = Logger.getLogger(AccountRestServiceTest.class.getSimpleName());
 
     @Autowired
     WebApplicationContext webApplicationContext;
@@ -79,17 +78,22 @@ public class AccountTest {
         accountDto2 = gson.fromJson(account2JsonStr, AccountDto.class);
     }
 
-    @Test
-    public void makeTransfer() {
-    }
-
     @After
-    public void destroyAccountData() {
-        logger.log(Level.INFO, "Account1=" + accountDto1.toString());
-        logger.log(Level.INFO, "Account2=" + accountDto2.toString());
+    public void destroyAccountData() throws Exception {
 
-        accountService.delete(accountDto1.getId());
-        accountService.delete(accountDto2.getId());
+        mockMvc.perform(delete("/account/" + accountDto1.getId())
+                .param("accountName", accountName1)
+                .param("balance", Double.toString(balance)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.name").value(accountName1));
+
+        mockMvc.perform(delete("/account/" + accountDto2.getId())
+                .param("accountName", accountName2)
+                .param("balance", Double.toString(balance)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.name").value(accountName2));
     }
 
 }

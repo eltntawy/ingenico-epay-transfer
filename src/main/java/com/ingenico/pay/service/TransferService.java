@@ -49,7 +49,8 @@ public class TransferService {
                         toAccountEntity.setBalance(toAccountBalance);
                         throw ex;
                     }
-                    logger.log(Level.INFO, "transfer completed successfully from id="+fromAccountId + " to id="+toAccountId + " amount" +amount);
+                    logger.log(Level.INFO, "transfer completed from id="+fromAccountId + " to id="+toAccountId + " amount=" +amount + " fromAccount balance="+fromAccountEntity.getBalance()+ "toAccount balance="+toAccountEntity.getBalance());
+
                 }
             } catch (ApplicationException.NoSufficientBalanceException ex) {
                 logger.log(Level.SEVERE,"Account id="+fromAccountId+ " balance="+fromAccountEntity.getBalance() +" has not enough balance for amount="+amount,ex);

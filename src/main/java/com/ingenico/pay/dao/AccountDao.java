@@ -14,9 +14,25 @@ public class AccountDao {
 
     private static final Map<String, AccountEntity> accountMap = new ConcurrentHashMap<String, AccountEntity>();
 
+    /*
+    static {
+        AccountEntity accountEntity1 = new AccountEntity();
+        AccountEntity accountEntity2 = new AccountEntity();
+
+        accountEntity1.setId("1");
+        accountEntity1.setName("Account 1");
+        accountEntity1.setBalance(10d);
+
+        accountEntity2.setId("2");
+        accountEntity2.setName("Account 2");
+        accountEntity2.setBalance(10d);
+
+        accountMap.put("1",accountEntity1);
+        accountMap.put("2",accountEntity2);
+    }*/
 
     public AccountEntity find(String id) {
-        if (id != null && accountMap.containsKey(id)) {
+        if (id != null) {
             AccountEntity accountEntity = accountMap.get(id);
             return accountEntity;
         }

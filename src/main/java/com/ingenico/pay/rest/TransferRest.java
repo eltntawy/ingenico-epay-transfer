@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("transfer")
 public class TransferRest {
 
+    public  static final String TRANSFER_SUCCESS_MESSAGE = "Transfer Completed successfully" ;
     @Autowired
     TransferService transferService;
 
@@ -25,7 +26,7 @@ public class TransferRest {
 
         transferService.validateAccountAndDoTransfer(fromAccountId,toAccountId,amount);
 
-        String message = "Transfer Completed successfully";
+        String message = TRANSFER_SUCCESS_MESSAGE;
         ResponseEntity<String> response = new ResponseEntity<String>(message, HttpStatus.OK);
 
         return response;

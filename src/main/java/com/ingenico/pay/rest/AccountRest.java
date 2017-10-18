@@ -38,7 +38,6 @@ public class AccountRest {
     }
 
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    @PostMapping
     public ResponseEntity<AccountDto> create (@RequestParam("accountName") String accountName,@RequestParam("balance") double balance) {
 
         LOGGER.log(Level.INFO,"account creation request with: accountName="+accountName+ " - balance="+balance);
@@ -53,7 +52,6 @@ public class AccountRest {
 
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    @PostMapping
     public ResponseEntity<AccountDto> delete (@PathVariable("id") String id) {
 
         LOGGER.log(Level.INFO,"request to delete account id="+id);
