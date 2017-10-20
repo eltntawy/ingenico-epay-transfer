@@ -76,4 +76,4 @@ Error Codes
 
 #### Error Code Transfer REST service:
 - 200 - OK           - transfer done successfully
-- 400 - BAD REQUEST  - Operation discurted and replay with reason message [No sufficient Balance, Invalid Amount For Transfer]
+- 400 - BAD REQUEST  - Operation discard and replay with reason message [No sufficient Balance, Invalid Amount For Transfer]
