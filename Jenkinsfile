@@ -12,5 +12,10 @@ pipeline {
         echo 'init for build'
       }
     }
+    stage('build') {
+      steps {
+        bat 'mvn clean install -Dmaven.test.failure.ignore=true'
+      }
+    }
   }
 }
