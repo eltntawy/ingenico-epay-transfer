@@ -14,6 +14,10 @@ pipeline {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
+                success {
+                    archive 'target/*.jar'
+                    archiveArtifacts 'backend/target/*.jar'
+                }
             }
         }
         stage('Deliver') {
